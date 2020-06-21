@@ -51,7 +51,7 @@ class JavaPracticeProblems::CLI
             when "problem_menu"
                 display_catagory_problems
                 puts "\n#{@@mag}>>> Enter the number of the practice problem you wish to choose."
-                puts ">>> Enter 'main' to return to the main menu."
+                puts ">>> Enter 'main' to return to the main catagory menu."
                 puts ">>> Enter 'quit' to leave the program.#{@@white}\n"
                 new_input = get_user_input
                 if valid_input(new_input, @cli_problems)
@@ -68,8 +68,8 @@ class JavaPracticeProblems::CLI
                 end
             when "problem_info"
                 display_practice_problem_info
-                puts "\n#{@@mag}>>> Enter 'catagory' to return to the selected catagory list"
-                puts ">>> Enter 'main' to return to the main menu"
+                puts "\n#{@@mag}>>> Enter 'back' to return to the selected catagory list"
+                puts ">>> Enter 'main' to return to the main catagory menu"
                 puts ">>> Enter 'quit' to leave the program#{@@white}"
                 new_temp = get_user_input
                 if valid_input(new_temp, @cli_problems)
@@ -122,9 +122,9 @@ class JavaPracticeProblems::CLI
     # Prints out information on the selected practice problem
     def display_practice_problem_info
         @cli_practice_problem = @cli_problems[@user_input.to_i - 1]
-        puts "\n#{@@cyn}Problem Info: #{@cli_practice_problem.problem_name} (#{@cli_practice_problem.catagory}):#{@@grn}"
-        puts "Description: \n   #{@cli_practice_problem.description}"         
-        puts "\nExample Case: \n   #{@cli_practice_problem.example_case}"  
+        puts "\n#{@@cyn}Coding Challenge: #{@@grn}#{@cli_practice_problem.problem_name} (#{@cli_practice_problem.catagory})#{@@cyn}"
+        puts "\n#{@@cyn}Description:#{@@grn}\n#{@cli_practice_problem.description}"         
+        puts "\n#{@@cyn}Example Case:#{@@grn}#{@cli_practice_problem.example_case}"  
     end
     
     # Creates ALL Application Objects

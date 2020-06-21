@@ -39,15 +39,27 @@ class Scraper
         problem_info_hash = {}
         page = Nokogiri::HTML(open(problem_url))
         problems_page = page.css('div.indent')
+        problem_start_index = problems_page.css('td').text.index(name)
+        problem_end_index = problems_page.css('td').text.index("Go...Save") - 1
 
         problem_info_hash["problem_name"] = name,
         problem_info_hash["catagory"] = problems_page.css('a span.h2').text,
         problem_info_hash["url"] = problem_url,
-        problem_info_hash["description"] = problems_page.css('p.max2').text,
-        problem_info_hash["example_case"] = ">>> NEED EXAMPLE CASE <<<"
+        problem_info_hash["description"] = self.format_description(problems_page.css('p.max2').text),
+        problem_info_hash["example_case"] = problems_page.css('td').text[problem_start_index..problem_end_index].gsub(name, "\n#{name}")
         problem_info_hash["index"] = "0"
     
         return problem_info_hash
+    end
+
+    def self.format_description(description)
+        str_length = description.length
+        str_div = str_length / 70
+        result = description
+        str_div.times do|i|
+          result.insert(((i + 1) * 70), "\n")
+        end
+        return result
     end
     
 end
